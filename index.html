@@ -118,7 +118,7 @@
             justify-content: center;
         }
 
-        /* Hero Section */
+       
         .hero {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1524592094714-0f0654.948fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
@@ -410,7 +410,7 @@
         </div>
     </section>
 
-    <!-- Filters -->
+ 
     <div class="filters">
         <button class="filter-btn active" data-filter="all">Toutes</button>
         <button class="filter-btn" data-filter="men">Homme</button>
@@ -419,12 +419,11 @@
         <button class="filter-btn" data-filter="sport">Sport</button>
     </div>
 
-    <!-- Products -->
+
     <section class="products" id="products">
         <!-- Produits générés par JS -->
     </section>
 
-    <!-- Cart Modal -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <span class="close-modal" onclick="toggleCart()">&times;</span>
@@ -437,7 +436,6 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" onclick="toggleLogin()">&times;</span>
@@ -461,7 +459,6 @@
     </div>
 
     <script>
-        // Produits avec vraies images et descriptions (prix en DA)
         const products = [
             { 
                 id: 1, 
