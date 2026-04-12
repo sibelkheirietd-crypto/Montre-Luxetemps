@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+   <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -6,17 +7,8 @@
     <title>LuxeTemps - Montres Homme & Femme</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
 
         /* Header */
         header {
@@ -40,16 +32,17 @@
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #ffd700;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
         }
 
-        .logo i { font-size: 2.2rem; }
+        .logo i { font-size: 2rem; animation: spin 2s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .nav-links {
             display: flex;
@@ -61,46 +54,16 @@
             color: white;
             text-decoration: none;
             transition: color 0.3s;
-            position: relative;
+            cursor: pointer;
         }
 
-        .nav-links a:hover {
-            color: #ffd700;
-        }
+        .nav-links a:hover { color: #ffd700; }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: #ffd700;
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cart-icon, .login-btn {
+        .cart-icon {
             position: relative;
             font-size: 1.5rem;
             cursor: pointer;
             color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-
-        .login-btn:hover {
-            background: #ffd700;
-            color: #1a1a2e;
-        }
-
-        .cart-icon:hover {
-            color: #ffd700;
         }
 
         .cart-count {
@@ -118,10 +81,10 @@
             justify-content: center;
         }
 
-       
+        /* Hero */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1524592094714-0f0654.948fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1524592094714-0f0654.948fd?w=1920&h=1080&fit=crop') center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -132,37 +95,31 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .hero-content p {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
-            max-width: 600px;
         }
 
         .cta-button {
             display: inline-block;
             background: linear-gradient(45deg, #ffd700, #ffed4a);
             color: #1a1a2e;
-            padding: 1.2rem 3rem;
+            padding: 1rem 2.5rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255,215,0,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
         }
 
         /* Filters */
@@ -178,340 +135,8 @@
 
         .filter-btn {
             padding: 0.8rem 1.5rem;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
+            border: 2px solid #ddd
+        
+       
 
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: #1a1a2e;
-            color: white;
-            border-color: #1a1a2e;
-            transform: translateY(-2px);
-        }
-
-        /* Products Grid */
-        .products {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
-
-        .product-image {
-            height: 280px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-
-        .product-image.men::before { content: "Homme"; background: rgba(26,26,46,0.9); color: white; padding: 0.5rem 1rem; position: absolute; top: 1rem; left: 1rem; border-radius: 20px; font-size: 0.8rem; }
-        .product-image.women::before { content: "Femme"; background: rgba(255,107,107,0.9); color: white; padding: 0.5rem 1rem; position: absolute; top: 1rem; left: 1rem; border-radius: 20px; font-size: 0.8rem; }
-
-        .product-info {
-            padding: 1.8rem;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-            max-height: 60px;
-            overflow: hidden;
-        }
-
-        .product-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #1a1a2e;
-        }
-
-        .product-price {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, #1a1a2e, #16213e);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .add-to-cart:hover {
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #1a1a2e;
-            transform: translateY(-2px);
-        }
-
-        /* Modals */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translate(-50%, -60%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
-        }
-
-        .close-modal {
-            float: right;
-            font-size: 2.5rem;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover { color: #ff4444; }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .filters {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .logo { font-size: 1.6rem; }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .product-card {
-            animation: fadeInUp 0.7s ease forwards;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="#home" class="logo">
-                <i class="fas fa-watch"></i>
-                LuxeTemps
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Accueil</a></li>
-                <li><a href="#men">Homme</a></li>
-                <li><a href="#women">Femme</a></li>
-                <li><a href="#promos">Promos</a></li>
-                <li><a href="#" onclick="toggleLogin()">Inscription</a></li>
-            </ul>
-            <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>LuxeTemps</h1>
-            <p>La perfection au poignet pour elle et lui - Collection exclusive de montres de luxe</p>
-            <a href="#products" class="cta-button">Découvrir la collection</a>
-        </div>
-    </section>
-
- 
-    <div class="filters">
-        <button class="filter-btn active" data-filter="all">Toutes</button>
-        <button class="filter-btn" data-filter="men">Homme</button>
-        <button class="filter-btn" data-filter="women">Femme</button>
-        <button class="filter-btn" data-filter="luxury">Luxe</button>
-        <button class="filter-btn" data-filter="sport">Sport</button>
-    </div>
-
-
-    <section class="products" id="products">
-        <!-- Produits générés par JS -->
-    </section>
-
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="toggleCart()">&times;</span>
-            <h2><i class="fas fa-shopping-cart"></i> Mon Panier</h2>
-            <div id="cartItems"></div>
-            <div style="margin-top: 2rem; text-align: right;">
-                <h3>Total: <span id="cartTotal">0 DA</span></h3>
-                <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="checkout()">Passer la commande</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="toggleLogin()">&times;</span>
-            <h2><i class="fas fa-user-plus"></i> Inscription</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <input type="text" id="nom" placeholder="Nom complet" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" id="telephone" placeholder="Téléphone" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" placeholder="Mot de passe" required>
-                </div>
-                <button type="submit" class="cta-button" style="width: 100%;">S'inscrire</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const products = [
-            { 
-                id: 1, 
-                name: "Chronographe Elite", 
-                price: 18500, 
-                category: "men", 
-                type: "luxury",
-                image: "https://images.unsplash.com/photo-1524592094714-0f0654.948fd?w=400&h=280&fit=crop",
-                description: "Chronographe automatique suisse avec boîtier en acier 316L, cadran noir texturé et bracelet cuir d'Italie. Résistant à 100m."
-            },
-            { 
-                id: 2, 
-                name: "Lunaire Perle", 
-                price: 14200, 
-                category: "women", 
-                type: "luxury",
-                image: "https://images.unsplash.com/photo-1541781774459-bb2af79d9dd1?w=400&h=280&fit=crop",
-                description: "Montre lunaire avec phase de lune, nacre d'Australie, diamants 0.5ct et bracelet mesh or rose 18k."
-            },
-            { 
-                id: 3, 
-                name: "Diver Pro 300", 
-                price: 9800, 
-                category: "men", 
-                type: "sport",
-                image: "https://images.unsplash.com/photo-1541781774458-2f2eb2f6f2c4?w=400&h=280&fit=crop",
-                description: "Montre de plongée professionnelle 300m, lunette céramique unidirectionnelle, mouvement automatique certifié."
-            },
-            { 
-                id: 4, 
-                name: "Rose Gold Diamond", 
-                price: 16500, 
-                category: "women", 
-                type: "luxury",
-                image: "https://images.unsplash.com/photo-1524592094712-60e1c6adf5e4?w=400&h=280&fit=crop",
-                description: "Or rose 18k plaqué, 12 diamants naturels, verre saphir antireflet, étanche 50m. Élégance intemporelle."
-            },
-            { 
-                id: 5, 
-                name: "Aviation Chrono", 
-                price: 19800, 
-                category: "men", 
-                type: "luxury",
-                image: "https://images.unsplash.com/photo-1541781774461-09d8f6d6f48e?w=400&h=280&fit=crop",
-                description: "Chronographe aviation avec tachymètre, boîtier titane grade 5, verre saphir bombé, 200m étanchéité."
-            },
-            { 
-                id: 6, 
-                name: "Sport Chic Quartz", 
-                price: 8500, 
-                category: "women", 
-                type: "sport",
-                image: "https://images.unsplash.com/photo-1541781774477-6c55b77d845d?w=400&h=280&fit=crop",
-                description: "Quartz japonais
-
-      
+    
