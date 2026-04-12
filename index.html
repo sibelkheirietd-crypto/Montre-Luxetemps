@@ -40,10 +40,16 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #ffd700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
+        .logo i { font-size: 2.2rem; }
 
         .nav-links {
             display: flex;
@@ -55,16 +61,46 @@
             color: white;
             text-decoration: none;
             transition: color 0.3s;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: #ffd700;
         }
 
-        .cart-icon {
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #ffd700;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon, .login-btn {
             position: relative;
             font-size: 1.5rem;
             cursor: pointer;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+        }
+
+        .cart-icon:hover {
+            color: #ffd700;
         }
 
         .cart-count {
@@ -84,7 +120,8 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a1a2e" width="1200" height="600"/><circle fill="%23ffd700" opacity="0.1" cx="300" cy="200" r="150"/><circle fill="%23ff6b6b" opacity="0.1" cx="900" cy="400" r="120"/></svg>');
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1524592094714-0f0654.948fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -95,31 +132,37 @@
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-content p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
+            max-width: 600px;
         }
 
         .cta-button {
             display: inline-block;
             background: linear-gradient(45deg, #ffd700, #ffed4a);
             color: #1a1a2e;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255,215,0,0.5);
         }
 
         /* Filters */
@@ -148,6 +191,7 @@
             background: #1a1a2e;
             color: white;
             border-color: #1a1a2e;
+            transform: translateY(-2px);
         }
 
         /* Products Grid */
@@ -156,7 +200,7 @@
             margin: 0 auto;
             padding: 0 2rem 4rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
@@ -165,55 +209,84 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s;
             cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .product-image {
-            height: 250px;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #999;
             position: relative;
         }
 
-        .product-image.men { color: #1a1a2e; }
-        .product-image.women { color: #ff6b6b; }
-        .product-image.all { color: #ffd700; }
-
-        .product-info {
-            padding: 1.5rem;
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         }
 
-        .product-category {
+        .product-image {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-image.men::before { content: "Homme"; background: rgba(26,26,46,0.9); color: white; padding: 0.5rem 1rem; position: absolute; top: 1rem; left: 1rem; border-radius: 20px; font-size: 0.8rem; }
+        .product-image.women::before { content: "Femme"; background: rgba(255,107,107,0.9); color: white; padding: 0.5rem 1rem; position: absolute; top: 1rem; left: 1rem; border-radius: 20px; font-size: 0.8rem; }
+
+        .product-info {
+            padding: 1.8rem;
+        }
+
+        .product-description {
             color: #666;
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            max-height: 60px;
+            overflow: hidden;
         }
 
         .product-name {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #1a1a2e;
         }
 
         .product-price {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #ffd700;
+            margin-bottom: 1rem;
         }
 
-        /* Cart Modal */
-        .cart-modal {
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #1a1a2e;
+            transform: translateY(-2px);
+        }
+
+        /* Modals */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
@@ -222,27 +295,55 @@
             height: 100%;
             background: rgba(0,0,0,0.8);
             z-index: 2000;
+            backdrop-filter: blur(5px);
         }
 
-        .cart-content {
+        .modal-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 20px;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            animation: slideIn 0.3s ease;
         }
 
-        .close-cart {
+        @keyframes slideIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .close-modal {
             float: right;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
             color: #999;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover { color: #ff4444; }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ffd700;
         }
 
         /* Responsive */
@@ -252,42 +353,46 @@
             }
             
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .filters {
                 flex-direction: column;
                 align-items: center;
             }
+
+            .logo { font-size: 1.6rem; }
         }
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card {
-            animation: fadeInUp 0.6s ease forwards;
+            animation: fadeInUp 0.7s ease forwards;
         }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">LuxeTemps</div>
+            <a href="#home" class="logo">
+                <i class="fas fa-watch"></i>
+                LuxeTemps
+            </a>
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#men">Homme</a></li>
                 <li><a href="#women">Femme</a></li>
                 <li><a href="#promos">Promos</a></li>
+                <li><a href="#" onclick="toggleLogin()">Inscription</a></li>
             </ul>
             <div class="cart-icon" onclick="toggleCart()">
                 <i class="fas fa-shopping-cart"></i>
@@ -300,7 +405,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>LuxeTemps</h1>
-            <p>La perfection au poignet pour elle et lui</p>
+            <p>La perfection au poignet pour elle et lui - Collection exclusive de montres de luxe</p>
             <a href="#products" class="cta-button">Découvrir la collection</a>
         </div>
     </section>
@@ -316,138 +421,100 @@
 
     <!-- Products -->
     <section class="products" id="products">
-        <!-- Les produits seront insérés par JavaScript -->
+        <!-- Produits générés par JS -->
     </section>
 
     <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <span class="close-cart" onclick="toggleCart()">&times;</span>
-            <h2>Mon Panier</h2>
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleCart()">&times;</span>
+            <h2><i class="fas fa-shopping-cart"></i> Mon Panier</h2>
             <div id="cartItems"></div>
             <div style="margin-top: 2rem; text-align: right;">
-                <h3>Total: <span id="cartTotal">0€</span></h3>
-                <button class="cta-button" style="width: 100%; margin-top: 1rem;">Passer la commande</button>
+                <h3>Total: <span id="cartTotal">0 DA</span></h3>
+                <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="checkout()">Passer la commande</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // Données des produits
-        const products = [
-            { id: 1, name: "Chronographe Elite", price: 1299, category: "men", type: "luxury", image: "⏱️" },
-            { id: 2, name: "Lunaire", price: 899, category: "women", type: "luxury", image: "🌙" },
-            { id: 3, name: "Diver Pro", price: 599, category: "men", type: "sport", image: "⚓" },
-            { id: 4, name: "Rose Gold", price: 749, category: "women", type: "luxury", image: "💎" },
-            { id: 5, name: "Aviation", price: 899, category: "men", type: "luxury", image: "✈️" },
-            { id: 6, name: "Sport Chic", price: 429, category: "women", type: "sport", image: "🎾" },
-            { id: 7, name: "Classic Black", price: 349, category: "men", type: "luxury", image: "⌚" },
-            { id: 8, name: "Minimal White", price: 299, category: "women", type: "luxury", image: "⚪" }
-        ];
-
-        let cart = [];
-        let currentFilter = 'all';
-
-        // Rendu des produits
-        function renderProducts(filter = 'all') {
-            const productsContainer = document.querySelector('.products');
-            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter || p.type === filter);
-            
-            productsContainer.innerHTML = filteredProducts.map(product => `
-                <div class="product-card" data-category="${product.category}" data-type="${product.type}">
-                    <div class="product-image ${product.category}">
-                        ${product.image}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${product.category === 'men' ? 'Homme' : 'Femme'}</div>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-price">${product.price.toLocaleString()}€</div>
-                        <button onclick="addToCart(${product.id})" style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: #1a1a2e; color: white; border: none; border-radius: 10px; cursor: pointer;">Ajouter au panier</button>
-                    </div>
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleLogin()">&times;</span>
+            <h2><i class="fas fa-user-plus"></i> Inscription</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="nom" placeholder="Nom complet" required>
                 </div>
-            `).join('');
-        }
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="telephone" placeholder="Téléphone" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Mot de passe" required>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">S'inscrire</button>
+            </form>
+        </div>
+    </div>
 
-        // Filtrage
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderProducts(currentFilter);
-            });
-        });
+    <script>
+        // Produits avec vraies images et descriptions (prix en DA)
+        const products = [
+            { 
+                id: 1, 
+                name: "Chronographe Elite", 
+                price: 18500, 
+                category: "men", 
+                type: "luxury",
+                image: "https://images.unsplash.com/photo-1524592094714-0f0654.948fd?w=400&h=280&fit=crop",
+                description: "Chronographe automatique suisse avec boîtier en acier 316L, cadran noir texturé et bracelet cuir d'Italie. Résistant à 100m."
+            },
+            { 
+                id: 2, 
+                name: "Lunaire Perle", 
+                price: 14200, 
+                category: "women", 
+                type: "luxury",
+                image: "https://images.unsplash.com/photo-1541781774459-bb2af79d9dd1?w=400&h=280&fit=crop",
+                description: "Montre lunaire avec phase de lune, nacre d'Australie, diamants 0.5ct et bracelet mesh or rose 18k."
+            },
+            { 
+                id: 3, 
+                name: "Diver Pro 300", 
+                price: 9800, 
+                category: "men", 
+                type: "sport",
+                image: "https://images.unsplash.com/photo-1541781774458-2f2eb2f6f2c4?w=400&h=280&fit=crop",
+                description: "Montre de plongée professionnelle 300m, lunette céramique unidirectionnelle, mouvement automatique certifié."
+            },
+            { 
+                id: 4, 
+                name: "Rose Gold Diamond", 
+                price: 16500, 
+                category: "women", 
+                type: "luxury",
+                image: "https://images.unsplash.com/photo-1524592094712-60e1c6adf5e4?w=400&h=280&fit=crop",
+                description: "Or rose 18k plaqué, 12 diamants naturels, verre saphir antireflet, étanche 50m. Élégance intemporelle."
+            },
+            { 
+                id: 5, 
+                name: "Aviation Chrono", 
+                price: 19800, 
+                category: "men", 
+                type: "luxury",
+                image: "https://images.unsplash.com/photo-1541781774461-09d8f6d6f48e?w=400&h=280&fit=crop",
+                description: "Chronographe aviation avec tachymètre, boîtier titane grade 5, verre saphir bombé, 200m étanchéité."
+            },
+            { 
+                id: 6, 
+                name: "Sport Chic Quartz", 
+                price: 8500, 
+                category: "women", 
+                type: "sport",
+                image: "https://images.unsplash.com/photo-1541781774477-6c55b77d845d?w=400&h=280&fit=crop",
+                description: "Quartz japonais
 
-        // Panier
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
-            
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-            
-            if (modal.style.display === 'block') {
-                renderCartItems();
-            }
-        }
-
-        function renderCartItems() {
-            const cartItems = document.getElementById('cartItems');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Votre panier est vide</p>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
-                        <div>
-                            <strong>${item.name}</strong><br>
-                            <small>${item.quantity}x ${item.price.toLocaleString()}€</small>
-                        </div>
-                        <div>
-                            <strong>${(item.price * item.quantity).toLocaleString()}€</strong>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            document.getElementById('cartTotal').textContent = total.toLocaleString() + '€';
-        }
-
-        // Fermer le modal en cliquant à l'extérieur
-        document.getElementById('cartModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('cartModal')) {
-                toggleCart();
-            }
-        });
-
-        // Initialisation
-        renderProducts();
-        updateCartUI();
-
-        // Smooth scroll pour les liens de navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+      
