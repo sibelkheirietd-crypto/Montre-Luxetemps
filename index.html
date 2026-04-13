@@ -9,7 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:Arial;background:#f5f5f5;}
 
-/* HEADER (نفس ديزاينك) */
+/* HEADER */
 header{
     position:fixed;
     top:0;
@@ -23,7 +23,7 @@ header{
     z-index:1000;
 }
 
-.logo{color:gold;font-weight:bold;font-size:20px;}
+.logo{color:gold;font-weight:bold;}
 
 .nav-links{
     display:flex;
@@ -46,7 +46,6 @@ header{
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    text-align:center;
 }
 
 /* PRODUCTS */
@@ -61,7 +60,6 @@ header{
     background:white;
     border-radius:10px;
     overflow:hidden;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
 .product-card img{
@@ -75,50 +73,27 @@ header{
 }
 
 button{
-    padding:10px;
     width:100%;
+    padding:10px;
     background:#1a1a2e;
     color:white;
     border:none;
-    cursor:pointer;
     margin-top:10px;
 }
 
-/* FILTERS */
-.filters{
-    text-align:center;
-    margin:20px;
-}
-
-.filters button{
-    width:auto;
-    padding:8px 15px;
-    margin:5px;
-    border-radius:20px;
-}
-
-/* ================= CART ================= */
+/* CART */
 .cart-icon{
     cursor:pointer;
-    position:relative;
 }
 
 .cart-count{
-    position:absolute;
-    top:-8px;
-    right:-10px;
     background:red;
     color:white;
-    font-size:12px;
-    width:18px;
-    height:18px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
     border-radius:50%;
+    padding:2px 7px;
 }
 
-/* MODAL */
+/* MODAL CART */
 .modal{
     display:none;
     position:fixed;
@@ -133,15 +108,30 @@ button{
 
 .modal-content{
     background:white;
-    width:350px;
     padding:20px;
-    border-radius:10px;
+    width:350px;
 }
 
-.close{
-    float:right;
-    cursor:pointer;
-    font-size:20px;
+/* FORM POPUP */
+.overlay{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+}
+
+.form-box{
+    background:white;
+    padding:20px;
+    width:300px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 </style>
 </head>
@@ -152,44 +142,45 @@ button{
 <div class="logo">LuxeTemps</div>
 
 <ul class="nav-links">
-<li><a href="#home">Accueil</a></li>
 <li><a href="#products">Produits</a></li>
 <li><a href="#" onclick="openForm()">Inscription</a></li>
 </ul>
 
-<!-- CART ICON -->
 <div class="cart-icon" onclick="openCart()">
-🛒
-<span class="cart-count" id="cartCount">0</span>
+🛒 <span class="cart-count" id="cartCount">0</span>
 </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
 <h1>Montres LuxeTemps</h1>
 <p>La perfection au poignet</p>
 </section>
 
-<!-- FILTERS -->
-<div class="filters">
-<button onclick="renderProducts('all')">Toutes</button>
-<button onclick="renderProducts('men')">Homme</button>
-<button onclick="renderProducts('women')">Femme</button>
-<button onclick="renderProducts('luxury')">Luxe</button>
-<button onclick="renderProducts('sport')">Sport</button>
-</div>
-
 <!-- PRODUCTS -->
 <section class="products" id="products"></section>
 
-<!-- CART MODAL -->
+<!-- CART -->
 <div class="modal" id="cartModal">
 <div class="modal-content">
-<span class="close" onclick="closeCart()">✖</span>
-
-<h3>Mon Panier</h3>
+<h3>Panier</h3>
 <div id="cartItems"></div>
-
 <h3>Total: <span id="total">0</span> DZD</h3>
+<button onclick="closeCart()">Fermer</button>
+</div>
+</div>
+
+<!-- FORM -->
+<div class="overlay" id="overlay">
+<div class="form-box">
+<h3>Inscription</h3>
+
+<input type="text" placeholder="Nom">
+<input type="email" placeholder="Email">
+<input type="password" placeholder="Mot de passe">
+
+<button onclick="alert('Compte créé ✅')">S'inscrire</button>
+<button onclick="closeForm()">Fermer</button>
 </div>
 </div>
 
@@ -200,59 +191,45 @@ const products=[
 { id:3,name:"Curren Gris",price:15990,category:"men",type:"luxury",image:"images/montre3.jpg"},
 { id:4,name:"Curren Vert",price:17490,category:"men",type:"luxury",image:"images/montre4.jpg"},
 { id:5,name:"Rolex Rose",price:8990,category:"women",type:"luxury",image:"images/montre5.jpg"},
-{ id:6,name:"Smart Watch",price:14290,category:"women",type:"sport",image:"images/montre6.jpg"},
-{ id:7,name:"Rolex Classique",price:8900,category:"women",type:"luxury",image:"images/montre7.jpg"},
-{ id:8,name:"Rolex Verte",price:12990,category:"women",type:"luxury",image:"images/montre8.jpg"}
+{ id:6,name:"Smart Watch",price:14290,category:"women",type:"sport",image:"images/montre6.jpg"}
 ];
 
 let cart=[];
 
-// PRODUCTS
-function renderProducts(filter="all"){
-let container=document.getElementById("products");
-
-let filtered=products.filter(p =>
-filter==="all" || p.category===filter || p.type===filter
-);
-
-container.innerHTML=filtered.map(p=>`
+/* PRODUCTS */
+function renderProducts(){
+document.getElementById("products").innerHTML =
+products.map(p=>`
 <div class="product-card">
 <img src="${p.image}">
 <div class="product-info">
 <h3>${p.name}</h3>
 <p>${p.price.toLocaleString()} DZD</p>
-<button onclick="addToCart(${p.id})">Ajouter au panier</button>
+<button onclick="addToCart(${p.id})">Ajouter</button>
 </div>
 </div>
 `).join("");
 }
 
-// CART
+/* CART */
 function addToCart(id){
-let product=products.find(p=>p.id===id);
+let p=products.find(x=>x.id===id);
 let item=cart.find(i=>i.id===id);
 
 if(item) item.quantity++;
-else cart.push({...product,quantity:1});
+else cart.push({...p,quantity:1});
 
 updateCart();
 }
 
-// UPDATE CART
 function updateCart(){
 document.getElementById("cartCount").innerText =
 cart.reduce((a,b)=>a+b.quantity,0);
 
-renderCart();
-}
-
-// RENDER CART
-function renderCart(){
-let container=document.getElementById("cartItems");
-
 let total=0;
 
-container.innerHTML=cart.map(i=>{
+document.getElementById("cartItems").innerHTML =
+cart.map(i=>{
 total+=i.price*i.quantity;
 return `<p>${i.name} x${i.quantity}</p>`;
 }).join("");
@@ -260,7 +237,7 @@ return `<p>${i.name} x${i.quantity}</p>`;
 document.getElementById("total").innerText=total.toLocaleString();
 }
 
-// OPEN / CLOSE CART
+/* CART MODAL */
 function openCart(){
 document.getElementById("cartModal").style.display="flex";
 }
@@ -269,7 +246,16 @@ function closeCart(){
 document.getElementById("cartModal").style.display="none";
 }
 
-// INIT
+/* FORM */
+function openForm(){
+document.getElementById("overlay").style.display="flex";
+}
+
+function closeForm(){
+document.getElementById("overlay").style.display="none";
+}
+
+/* INIT */
 renderProducts();
 </script>
 
