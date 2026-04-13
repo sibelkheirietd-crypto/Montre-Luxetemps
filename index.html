@@ -358,8 +358,8 @@ function renderProducts(filter = 'all') {
         : products.filter(p => p.category === filter || p.type === filter);
 
     productsContainer.innerHTML = filteredProducts.map(product => `
-        <div class="product-card">
-            <img src="${product.image}" alt="${product.name}" style="width:100%; height:250px; object-fit:cover;">
+      
+       
             <div class="product-info">
                 <div class="product-category">${product.category === 'men' ? 'Homme' : 'Femme'}</div>
                 <div class="product-name">${product.name}</div>
@@ -455,17 +455,8 @@ updateCartUI();
                         <div class="product-price">${product.price.toLocaleString()}DZD</div>
                         <button onclick="addToCart(${product.id})" style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: #1a1a2e; color: white; border: none; border-radius: 10px; cursor: pointer;">Ajouter au panier</button>
                     </div>
-                </div>
-        
+                </div>  
                     <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
-                        <div>
-                            <strong>${item.name}</strong><br>
-                            <small>${item.quantity}x ${item.price.toLocaleString()}€</small>
-                        </div>
-                        <div>
-                            <strong>${(item.price * item.quantity).toLocaleString()}€</strong>
-                        </div>
-                    </div>   
-    </script>
+                    </div>                         
 </body>
 </html>
