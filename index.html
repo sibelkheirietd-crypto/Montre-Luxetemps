@@ -288,7 +288,28 @@
                 <li><a href="#men">Homme</a></li>
                 <li><a href="#women">Femme</a></li>
                 <li><a href="#promos">Promos</a></li>
+                <li><a href="#inscription">Inscription</a></li> 
             </ul>
+            <!-- INSCRIPTION -->
+<section id="inscription" style="padding: 100px 20px; text-align:center; background:#f4f4f4;">
+    
+    <form style="width:300px; margin:auto; padding:20px; background:white; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); display:flex; flex-direction:column; gap:10px;">
+        
+        <h2>Inscription</h2>
+
+        <input type="text" placeholder="Nom complet" required style="padding:10px;">
+
+        <input type="email" placeholder="Email" required style="padding:10px;">
+
+        <input type="password" placeholder="Mot de passe" required style="padding:10px;">
+
+        <button type="submit" style="padding:10px; background:black; color:white; border:none; cursor:pointer;">
+            S'inscrire
+        </button>
+
+    </form>
+
+</section>
             <div class="cart-icon" onclick="toggleCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count" id="cartCount">0</span>
@@ -331,19 +352,19 @@
             </div>
         </div>
     </div>
+<script>
+const products = [
+    { id: 1, name: "Curren Bleu classique", price: 12990, category: "men", type: "luxury", image: "images/montre1.jpg" },
+    { id: 2, name: "Curren Bracelet Noir", price: 18990, category: "men", type: "luxury", image: "images/montre2.jpg" },
+    { id: 3, name: "Curren Bracelet gris", price: 15990, category: "men", type: "luxury", image: "images/montre3.jpg" },
+    { id: 4, name: "Curren Bracelet vert", price: 17490, category: "men", type: "luxury", image: "images/montre4.jpg" },
+    { id: 5, name: "Rolex rose", price: 8990, category: "women", type: "luxury", image: "images/montre5.jpg" },
+    { id: 6, name: "Smart watch", price: 14290, category: "women", type: "sport", image: "images/montre6.jpg" },
+    { id: 7, name: "Rolex classique", price: 8900, category: "women", type: "luxury", image: "images/montre7.jpg" },
+    { id: 8, name: "Rolex Verte", price: 12990, category: "women", type: "luxury", image: "images/montre8.jpg" }
+];
+</script>
 
-    <script>
-        // Données des produits
-        const products = [
-            { id: 1, name: "Chronographe Elite", price: 1299, category: "men", type: "luxury", image: "⏱️" },
-            { id: 2, name: "Lunaire", price: 899, category: "women", type: "luxury", image: "🌙" },
-            { id: 3, name: "Diver Pro", price: 599, category: "men", type: "sport", image: "⚓" },
-            { id: 4, name: "Rose Gold", price: 749, category: "women", type: "luxury", image: "💎" },
-            { id: 5, name: "Aviation", price: 899, category: "men", type: "luxury", image: "✈️" },
-            { id: 6, name: "Sport Chic", price: 429, category: "women", type: "sport", image: "🎾" },
-            { id: 7, name: "Classic Black", price: 349, category: "men", type: "luxury", image: "⌚" },
-            { id: 8, name: "Minimal White", price: 299, category: "women", type: "luxury", image: "⚪" }
-        ];
 
         let cart = [];
         let currentFilter = 'all';
@@ -361,7 +382,7 @@
                     <div class="product-info">
                         <div class="product-category">${product.category === 'men' ? 'Homme' : 'Femme'}</div>
                         <div class="product-name">${product.name}</div>
-                        <div class="product-price">${product.price.toLocaleString()}€</div>
+                        <div class="product-price">${product.price.toLocaleString()}DZD</div>
                         <button onclick="addToCart(${product.id})" style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: #1a1a2e; color: white; border: none; border-radius: 10px; cursor: pointer;">Ajouter au panier</button>
                     </div>
                 </div>
