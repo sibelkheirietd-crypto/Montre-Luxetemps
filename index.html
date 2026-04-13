@@ -445,17 +445,6 @@ document.getElementById('cartModal').addEventListener('click', (e) => {
 renderProducts();
 updateCartUI();
 </script>
-
-
-        let cart = [];
-        let currentFilter = 'all';
-
-        // Rendu des produits
-        function renderProducts(filter = 'all') {
-            const productsContainer = document.querySelector('.products');
-            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter || p.type === filter);
-            
-            productsContainer.innerHTML = filteredProducts.map(product => `
                 <div class="product-card" data-category="${product.category}" data-type="${product.type}">
                     <div class="product-image ${product.category}">
                         ${product.image}
@@ -467,54 +456,7 @@ updateCartUI();
                         <button onclick="addToCart(${product.id})" style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: #1a1a2e; color: white; border: none; border-radius: 10px; cursor: pointer;">Ajouter au panier</button>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        // Filtrage
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderProducts(currentFilter);
-            });
-        });
-
-        // Panier
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
-            
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-            
-            if (modal.style.display === 'block') {
-                renderCartItems();
-            }
-        }
-
-        function renderCartItems() {
-            const cartItems = document.getElementById('cartItems');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Votre panier est vide</p>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
+        
                     <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
                         <div>
                             <strong>${item.name}</strong><br>
@@ -523,33 +465,7 @@ updateCartUI();
                         <div>
                             <strong>${(item.price * item.quantity).toLocaleString()}€</strong>
                         </div>
-                    </div>
-                `).join('');
-            }
-            
-            document.getElementById('cartTotal').textContent = total.toLocaleString() + '€';
-        }
-
-        // Fermer le modal en cliquant à l'extérieur
-        document.getElementById('cartModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('cartModal')) {
-                toggleCart();
-            }
-        });
-
-        // Initialisation
-        renderProducts();
-        updateCartUI();
-
-        // Smooth scroll pour les liens de navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+                    </div>   
     </script>
 </body>
 </html>
