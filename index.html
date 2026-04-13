@@ -9,7 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:Arial;background:#f5f5f5;}
 
-/* HEADER */
+/* HEADER (نفس ديزاينك) */
 header{
     position:fixed;
     top:0;
@@ -97,8 +97,29 @@ button{
     border-radius:20px;
 }
 
-/* ================= FORM POPUP ================= */
-.overlay{
+/* ================= CART ================= */
+.cart-icon{
+    cursor:pointer;
+    position:relative;
+}
+
+.cart-count{
+    position:absolute;
+    top:-8px;
+    right:-10px;
+    background:red;
+    color:white;
+    font-size:12px;
+    width:18px;
+    height:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+}
+
+/* MODAL */
+.modal{
     display:none;
     position:fixed;
     top:0;
@@ -108,27 +129,19 @@ button{
     background:rgba(0,0,0,0.6);
     justify-content:center;
     align-items:center;
-    z-index:2000;
 }
 
-.form-box{
+.modal-content{
     background:white;
-    padding:25px;
+    width:350px;
+    padding:20px;
     border-radius:10px;
-    width:300px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.form-box input{
-    padding:10px;
 }
 
 .close{
-    text-align:right;
+    float:right;
     cursor:pointer;
-    font-size:18px;
+    font-size:20px;
 }
 </style>
 </head>
@@ -143,9 +156,14 @@ button{
 <li><a href="#products">Produits</a></li>
 <li><a href="#" onclick="openForm()">Inscription</a></li>
 </ul>
+
+<!-- CART ICON -->
+<div class="cart-icon" onclick="openCart()">
+🛒
+<span class="cart-count" id="cartCount">0</span>
+</div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
 <h1>Montres LuxeTemps</h1>
 <p>La perfection au poignet</p>
@@ -163,18 +181,15 @@ button{
 <!-- PRODUCTS -->
 <section class="products" id="products"></section>
 
-<!-- ================= INSCRIPTION POPUP ================= -->
-<div class="overlay" id="overlay">
-<div class="form-box">
-<div class="close" onclick="closeForm()">✖</div>
+<!-- CART MODAL -->
+<div class="modal" id="cartModal">
+<div class="modal-content">
+<span class="close" onclick="closeCart()">✖</span>
 
-<h3>Inscription</h3>
+<h3>Mon Panier</h3>
+<div id="cartItems"></div>
 
-<input type="text" placeholder="Nom complet">
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Mot de passe">
-
-<button onclick="alert('Compte créé ✅')">S'inscrire</button>
+<h3>Total: <span id="total">0</span> DZD</h3>
 </div>
 </div>
 
@@ -190,6 +205,8 @@ const products=[
 { id:8,name:"Rolex Verte",price:12990,category:"women",type:"luxury",image:"images/montre8.jpg"}
 ];
 
+let cart=[];
+
 // PRODUCTS
 function renderProducts(filter="all"){
 let container=document.getElementById("products");
@@ -204,19 +221,52 @@ container.innerHTML=filtered.map(p=>`
 <div class="product-info">
 <h3>${p.name}</h3>
 <p>${p.price.toLocaleString()} DZD</p>
-<button>Ajouter au panier</button>
+<button onclick="addToCart(${p.id})">Ajouter au panier</button>
 </div>
 </div>
 `).join("");
 }
 
-// FORM
-function openForm(){
-document.getElementById("overlay").style.display="flex";
+// CART
+function addToCart(id){
+let product=products.find(p=>p.id===id);
+let item=cart.find(i=>i.id===id);
+
+if(item) item.quantity++;
+else cart.push({...product,quantity:1});
+
+updateCart();
 }
 
-function closeForm(){
-document.getElementById("overlay").style.display="none";
+// UPDATE CART
+function updateCart(){
+document.getElementById("cartCount").innerText =
+cart.reduce((a,b)=>a+b.quantity,0);
+
+renderCart();
+}
+
+// RENDER CART
+function renderCart(){
+let container=document.getElementById("cartItems");
+
+let total=0;
+
+container.innerHTML=cart.map(i=>{
+total+=i.price*i.quantity;
+return `<p>${i.name} x${i.quantity}</p>`;
+}).join("");
+
+document.getElementById("total").innerText=total.toLocaleString();
+}
+
+// OPEN / CLOSE CART
+function openCart(){
+document.getElementById("cartModal").style.display="flex";
+}
+
+function closeCart(){
+document.getElementById("cartModal").style.display="none";
 }
 
 // INIT
